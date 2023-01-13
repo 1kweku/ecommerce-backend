@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { Product, Category, Tag, ProductTag } = require("../../models");
 
-// The `/api/products` endpoint
+// http://localhost:3001/api/products
 
 // get all products
 router.get("/", async (req, res) => {
@@ -15,6 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// http://localhost:3001/api/products/5
 // get one product
 router.get("/:id", async (req, res) => {
   try {
@@ -42,6 +43,8 @@ router.get("/:id", async (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
+
+// http://localhost:3001/api/products
 router.post("/", (req, res) => {
   Product.create(req.body)
     .then((product) => {
@@ -65,7 +68,7 @@ router.post("/", (req, res) => {
     });
 });
 
-// update product
+// http://localhost:3001/api/products/4
 router.put("/:id", (req, res) => {
   // update product data
   Product.update(req.body, {
@@ -107,6 +110,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
+// http://localhost:3001/api/products
 router.delete("/:id", async (req, res) => {
   // delete one product by its `id` value
   try {
@@ -115,7 +119,7 @@ router.delete("/:id", async (req, res) => {
         id: req.params.id,
       },
     });
-    res.status(200).json();
+    res.status(200).json(deletedProduct);
   } catch (err) {
     res.status(500).json(err);
   }

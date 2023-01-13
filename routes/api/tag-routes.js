@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { Tag, Product, ProductTag } = require("../../models");
 
-// The `/api/tags` endpoint
+// The `http://localhost:3001/api/tags` endpoint
 router.get("/", async (req, res) => {
   try {
     const tagData = await Tag.findAll({
@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+//http://localhost:3001/api/tags/4
 router.get("/:id", async (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Tag data
@@ -30,7 +30,7 @@ router.get("/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+//http://localhost:3001/api/tags/
 router.post("/", async (req, res) => {
   // create a new tag
   try {
@@ -40,11 +40,11 @@ router.post("/", async (req, res) => {
     res.status(400).json(err);
   }
 });
-
+//http://localhost:3001/api/tags/6
 router.put("/:id", async (req, res) => {
   // update a tag's name by its `id` value
   try {
-    const updateTag = await Tag.update(
+    const updatedTag = await Tag.update(
       {
         tag_name: req.body.tag_name,
       },
@@ -52,25 +52,23 @@ router.put("/:id", async (req, res) => {
         where: {
           id: req.params.id,
         },
-      },
-      res.status(200).json()
+      }
     );
+    res.status(200).json(updatedTag);
   } catch (err) {
     res.status(500).json(err);
   }
 });
-
+//http://localhost:3001/api/tags/4
 router.delete("/:id", async (req, res) => {
   // delete on tag by its `id` value
   try {
-    const deletedTag = await Tag.destroy(
-      {
-        where: {
-          id: req.params.id,
-        },
+    const deletedTag = await Tag.destroy({
+      where: {
+        id: req.params.id,
       },
-      res.status(200).json()
-    );
+    });
+    res.status(200).json(deletedTag);
   } catch (err) {
     res.status(500).json(err);
   }
